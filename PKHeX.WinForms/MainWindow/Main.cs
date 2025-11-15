@@ -1074,33 +1074,53 @@ public partial class Main : Form
         DisplayLegalityReport(la);
     }
 
-    private static void DisplayLegalityReport(LegalityAnalysis la)
+    private void DisplayLegalityReport(LegalityAnalysis la)
     {
-        bool verbose = ModifierKeys == Keys.Control ^ Settings.Display.ExportLegalityAlwaysVerbose;
-        var report = la.Report(CurrentLanguage, verbose);
-        if (verbose)
+        if (Settings.Sounds.PlaySoundLegalityCheck)
+            SystemSounds.Asterisk.Play();
+
+        if (Settings.Display.IgnoreLegalPopup && la.Valid)
+            return;
+
+        var verbose = ModifierKeys == Keys.Control ^ Settings.Display.ExportLegalityAlwaysVerbose;
+        var localizer = LegalityLocalizationContext.Create(la, CurrentLanguage);
+        var simpleReport = localizer.Report(false);
+        var verboseReport = localizer.Report(true);
+
+        var settings = localizer.Settings;
+        var page = new TaskDialogPage
         {
-            if (Settings.Display.ExportLegalityNeverClipboard)
+            Caption = "合法性检查",
+            Heading = la.Valid ? settings.Lines.Legal : settings.Lines.SInvalid,
+            Icon = la.Valid ? TaskDialogIcon.ShieldSuccessGreenBar : TaskDialogIcon.ShieldErrorRedBar,
+            Text = la.Valid ? "" : simpleReport,
+            Expander = new TaskDialogExpander
             {
-                WinFormsUtil.Alert(report);
-                return;
-            }
-            var dr = WinFormsUtil.Prompt(MessageBoxButtons.YesNo, report, MsgClipboardLegalityExport);
-            if (dr != DialogResult.Yes)
-                return;
-            var enc = la.EncounterOriginal.GetTextLines(Settings.Display.ExportLegalityVerboseProperties);
-            report += Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, enc);
-            WinFormsUtil.SetClipboardText(report);
-        }
-        else if (Settings.Display.IgnoreLegalPopup && la.Valid)
+                CollapsedButtonText = "查看完整报告",
+                ExpandedButtonText = "隐藏完整报告",
+                Expanded = verbose,
+                Text = verboseReport.Replace(simpleReport + Environment.NewLine, ""),
+            },
+            Buttons = [TaskDialogButton.OK],
+            DefaultButton = TaskDialogButton.OK,
+            AllowCancel = true,
+            SizeToContent = true,
+        };
+
+        if (!Settings.Display.ExportLegalityNeverClipboard)
         {
-            if (Settings.Sounds.PlaySoundLegalityCheck)
+            var clipboard = new TaskDialogButton("复制报告到剪贴板") { AllowCloseDialog = true };
+            clipboard.Click += (_, _) =>
+            {
+                var enc = la.EncounterOriginal.GetTextLines(Settings.Display.ExportLegalityVerboseProperties);
+                var msg = verboseReport + Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, enc);
+                WinFormsUtil.SetClipboardText(msg);
                 SystemSounds.Asterisk.Play();
+            };
+            page.Buttons.Add(clipboard);
         }
-        else
-        {
-            WinFormsUtil.Alert(Settings.Sounds.PlaySoundLegalityCheck, report);
-        }
+
+        TaskDialog.ShowDialog(this, page);
     }
 
     private void ClickClone(object sender, EventArgs e)
