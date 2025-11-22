@@ -60,30 +60,30 @@
 
   <ItemGroup>
     <None Remove="MainWindow\Plugins\AutoModPlugins.dll" />
-    <None Remove="MainWindow\Plugins\PLZASeedFinderPlugin.dll" />
-    <None Remove="MainWindow\Plugins\SpindaPatternPlugin.dll" />
-    <None Remove="MainWindow\Plugins\SVSeedFinderPlugin.dll" />
-    <None Remove="MainWindow\Plugins\SWSHSeedFinderPlugin.dll" />
-    <None Remove="MainWindow\Plugins\PKHeX.Plugin.LivingDex.dll" />
+    <None Remove="MainWindow\Plugins\TeraFinder.Plugins.dll" />
+    <None Remove="MainWindow\Plugins\HomeLive.Plugins.dll" />
+    <None Remove="MainWindow\Plugins\PluginPile.dll" />
+    <None Remove="MainWindow\Plugins\PluginPile.Unmaintained.SwShRaidTool.dll" />
+    <None Remove="MainWindow\Plugins\PluginPile.Unmaintained.SwShEventEditor.dll" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="MainWindow\Plugins\AutoModPlugins.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow\Plugins\PLZASeedFinderPlugin.dll">
+    <EmbeddedResource Include="MainWindow\Plugins\TeraFinder.Plugins.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow\Plugins\SpindaPatternPlugin.dll">
+    <EmbeddedResource Include="MainWindow\Plugins\HomeLive.Plugins.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow\Plugins\SVSeedFinderPlugin.dll">
+    <EmbeddedResource Include="MainWindow\Plugins\PluginPile.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow\Plugins\SWSHSeedFinderPlugin.dll">
+    <EmbeddedResource Include="MainWindow\Plugins\PluginPile.Unmaintained.SwShRaidTool.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow\Plugins\PKHeX.Plugin.LivingDex.dll">
+    <EmbeddedResource Include="MainWindow\Plugins\PluginPile.Unmaintained.SwShEventEditor.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
