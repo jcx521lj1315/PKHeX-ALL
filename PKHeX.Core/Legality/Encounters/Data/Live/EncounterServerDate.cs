@@ -251,6 +251,6 @@ public static class EncounterServerDate
     {
         {1601, new(2025, 10, 14, 2026, 3, 1, +2)}, // Ralts holding Gardevoirite
         {0102, new(2025, 10, 23, 2026, 2, 1, +2)}, // Slowpoke Poké Center Gift
-        {0101, new(2025, 10, 31, 2027, 2, 1)}, // Poké Center Audino Birthday Gift
+        {0101, new(2025, 10, 31, 2027, 2, 1, +2)}, // Poké Center Audino Birthday Gift
     };
 }
