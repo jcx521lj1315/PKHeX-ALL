@@ -99,9 +99,6 @@ public sealed class ItemStorage9ZA : IItemStorage
     [
         0005, // Safari Ball (Season 3 Ranked Reward)
 
-        0662, // Mewtwonite X
-        0663, // Mewtwonite Y
-
         0851, // Beast Ball
     ];
 
